@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
 	"github.com/nranchev/go-libGeoIP"
 	"log"
 	"net/http"
@@ -12,6 +13,8 @@ import (
 )
 
 const DEFAULT_PORT = 8000
+
+const heroku = true
 
 const dbFile = "geoip.dat"
 
@@ -71,8 +74,12 @@ func geoip_init() {
 }
 
 func handler(w http.ResponseWriter, req *http.Request) {
-
-	addr := strings.Split(req.RemoteAddr, ":")
+	var addr []string
+	if !heroku {
+		addr = strings.Split(req.RemoteAddr, ":")
+	} else {
+		spew.Printf("%+v\n", *req)
+	}
 	if len(addr) > 0 && len(addr[0]) > 3 {
 		for i := 0; i < len(addr); i++ {
 			fmt.Println(addr[i])
