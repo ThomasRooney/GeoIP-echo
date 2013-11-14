@@ -1,1 +1,1 @@
-web: geoip-echo
+web: GeoIP-echo
