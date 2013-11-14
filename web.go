@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-const DEFAULT_PORT = 80
+const DEFAULT_PORT = 8000
 
 const dbFile = "geoip.dat"
 
