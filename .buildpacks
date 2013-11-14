@@ -1,1 +1,2 @@
 git://github.com/johnbeynon/heroku-buildpack-wget.git
+https://github.com/kr/heroku-buildpack-go.git
