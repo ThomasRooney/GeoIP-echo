@@ -1,6 +1,6 @@
 ## GeoIP Echo server
 
-I was looking for a way to tell which country my computer was operating in, and couldn't find anything that I could use from my terminal on the net (i.e., on a headless terminal).
+I was looking for a way to tell which country my computer was externally seen to be operating in, and couldn't find anything that I could use on a headless terminal over the net.
 
 IP echoing is a nice solution, and I have this alias set up in my .profile:
 
