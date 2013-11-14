@@ -73,10 +73,7 @@ func geoip_init() {
 func handler(w http.ResponseWriter, req *http.Request) {
 
 	addr := strings.Split(req.RemoteAddr, ":")
-	// as a test, addr = 129.31.224.57
-	addr[0] = "129.31.224.57"
 	if len(addr) > 0 && len(addr[0]) > 3 {
-		fmt.Printf("Request from ip: " + addr[0] + "\n")
 
 		loc := gi.GetLocationByIP(addr[0])
 
@@ -90,6 +87,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			collector = collector + fmt.Sprintf("Latitude: %f\n", loc.Latitude)
 			collector = collector + fmt.Sprintf("Longitude: %f\n", loc.Longitude)
 		}
+		fmt.Printf("Request from ip: " + addr[0] + " @" + loc.CountryName + ":" + loc.City + "\n")
 		fmt.Fprintf(w, "ip: "+addr[0]+"\n"+collector)
 	} else {
 		fmt.Fprintf(w, "unknown\n")
