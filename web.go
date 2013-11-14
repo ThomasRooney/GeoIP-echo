@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/nranchev/go-libGeoIP"
 	"log"
 	"net/http"
@@ -74,17 +73,15 @@ func geoip_init() {
 }
 
 func handler(w http.ResponseWriter, req *http.Request) {
-	var addr []string
+	var addr string
 	if !heroku {
-		addr = strings.Split(req.RemoteAddr, ":")
+		split := strings.Split(req.RemoteAddr, ":")
+		addr = split[0]
 	} else {
-		spew.Printf("%+v\n", *req)
+		addr = req.Header.Get("X-forwarded-For")
 	}
-	if len(addr) > 0 && len(addr[0]) > 3 {
-		for i := 0; i < len(addr); i++ {
-			fmt.Println(addr[i])
-		}
-		loc := gi.GetLocationByIP(addr[0])
+	if len(addr) > 0 {
+		loc := gi.GetLocationByIP(addr)
 
 		collector := ""
 
@@ -97,7 +94,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			collector = collector + fmt.Sprintf("Longitude: %f\n", loc.Longitude)
 		}
 
-		fmt.Printf("ip: " + addr[0] + "\n" + collector) // Logging
+		fmt.Printf("ip: " + addr + "\n" + collector) // Logging
 
 	} else {
 		fmt.Fprintf(w, "unknown\n")
