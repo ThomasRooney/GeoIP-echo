@@ -1,1 +1,1 @@
-web: GeoIP-echo
+web: go run web.go
