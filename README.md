@@ -6,7 +6,7 @@ IP echoing is a nice solution, and I have this alias set up in my .profile:
 
 	alias ipecho='wget http://ipecho.net/plain -O - -q ; echo'
 
-However what I was looking for required a bit more information, so I grabbed the GeoIP data from Maxmind, and used some go api bindings to read it for my purposes. This is the result:
+However what I was looking for required a bit more information, so I grabbed the GeoIP data from Maxmind, and used nranchev's MaxMind parser to query it . This is the result.
 
 Done pretty simply, though it was a bit of trial and error to get working on Heroku, as I didn't want to add the GeoIP database to this repository. Have a look in my web.go to see how it was done.
 
