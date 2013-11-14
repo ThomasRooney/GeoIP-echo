@@ -87,8 +87,10 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			collector = collector + fmt.Sprintf("Latitude: %f\n", loc.Latitude)
 			collector = collector + fmt.Sprintf("Longitude: %f\n", loc.Longitude)
 		}
-		fmt.Printf("Request from ip: " + addr[0] + " @" + loc.CountryName + ":" + loc.City + "\n")
+
 		fmt.Fprintf(w, "ip: "+addr[0]+"\n"+collector)
+		fmt.Printf("ip: " + addr[0] + "\n" + collector) // Logging
+
 	} else {
 		fmt.Fprintf(w, "unknown\n")
 	}
