@@ -18,7 +18,7 @@ const dbFile = "geoip.dat"
 var gi *libgeo.GeoIP
 
 func get_database() {
-	cmd := exec.Command("wget", "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz")
+	cmd := exec.Command("wget", "http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz")
 	err := cmd.Start()
 	if err != nil {
 		log.Fatal(err)
@@ -26,7 +26,7 @@ func get_database() {
 	fmt.Printf("Getting Database from maxmind..\n")
 	err = cmd.Wait()
 
-	cmd = exec.Command("gzip", "-d", "GeoLite2-City.mmdb.gz")
+	cmd = exec.Command("gzip", "-d", "GeoLiteCity.dat.gz")
 	err = cmd.Start()
 	if err != nil {
 		log.Fatal(err)
@@ -34,7 +34,7 @@ func get_database() {
 	log.Printf("UnGzipping..\n")
 	err = cmd.Wait()
 
-	cmd = exec.Command("mv", "GeoLite2-City.mmdb", dbFile)
+	cmd = exec.Command("mv", "GeoLiteCity.dat", dbFile)
 	err = cmd.Start()
 	if err != nil {
 		log.Fatal(err)
@@ -42,7 +42,7 @@ func get_database() {
 	log.Printf("Renaming..\n")
 	err = cmd.Wait()
 
-	cmd = exec.Command("rm", "GeoLite2-City.mmdb.gz")
+	cmd = exec.Command("rm", "GeoLiteCity.dat.gz")
 	err = cmd.Start()
 	if err != nil {
 		log.Fatal(err)
@@ -73,6 +73,8 @@ func geoip_init() {
 func handler(w http.ResponseWriter, req *http.Request) {
 
 	addr := strings.Split(req.RemoteAddr, ":")
+	// as a test, addr = 129.31.224.57
+	addr[0] = "129.31.224.57"
 	if len(addr) > 0 && len(addr[0]) > 3 {
 		fmt.Printf("Request from ip: " + addr[0] + "\n")
 
