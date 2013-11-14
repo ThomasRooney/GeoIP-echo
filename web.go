@@ -74,7 +74,9 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	addr := strings.Split(req.RemoteAddr, ":")
 	if len(addr) > 0 && len(addr[0]) > 3 {
-
+		for i := 0; i < len(addr); i++ {
+			fmt.Println(addr[i])
+		}
 		loc := gi.GetLocationByIP(addr[0])
 
 		collector := ""
@@ -88,7 +90,6 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			collector = collector + fmt.Sprintf("Longitude: %f\n", loc.Longitude)
 		}
 
-		fmt.Fprintf(w, "ip: "+addr[0]+"\n"+collector)
 		fmt.Printf("ip: " + addr[0] + "\n" + collector) // Logging
 
 	} else {
