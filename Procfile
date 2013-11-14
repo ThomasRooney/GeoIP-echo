@@ -1,1 +1,1 @@
-web: GeoIP-echo
+web: GeoIP-echo $PORT
